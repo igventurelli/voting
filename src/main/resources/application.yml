@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: voting
+  jpa:
+    hibernate:
+      ddl-auto: create
