@@ -17,11 +17,12 @@ public class Associado {
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private String nome;
 
     @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
-    private Set<SessaoVotacao> sessoesVotacoes;
+    private Set<Votacao> votacoes;
 }

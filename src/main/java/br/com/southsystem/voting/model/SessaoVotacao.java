@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Entity
 @Builder
@@ -15,6 +17,7 @@ public class SessaoVotacao {
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // tempo em segundos
@@ -25,7 +28,6 @@ public class SessaoVotacao {
     @OneToOne(cascade = CascadeType.ALL)
     private Pauta pauta;
 
-    @ManyToOne
-    @JoinColumn(name = "associado_id")
-    private Associado associado;
+    @OneToMany(mappedBy = "sessaoVotacao", cascade = CascadeType.ALL)
+    private Set<Votacao> votacoes;
 }

@@ -11,13 +11,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pauta {
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"sessao_votacao_id", "associado_id"}) })
+public class Votacao {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String titulo;
+    @ManyToOne
+    @JoinColumn(name = "sessao_votacao_id")
+    private SessaoVotacao sessaoVotacao;
+
+    @ManyToOne
+    @JoinColumn(name = "associado_id")
+    private Associado associado;
 }
