@@ -1,33 +1,28 @@
 package br.com.southsystem.voting.model;
 
-import br.com.southsystem.voting.dto.AssociadoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Associado {
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"votacao_id", "associado_id"}) })
+public class Voto {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String nome;
+    @ManyToOne
+    @JoinColumn(name = "votacao_id")
+    private Votacao votacao;
 
-    @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
-    private Set<Voto> votos;
-
-    public AssociadoDTO toDTO() {
-        return new AssociadoDTO(id, nome);
-    }
+    @ManyToOne
+    @JoinColumn(name = "associado_id")
+    private Associado associado;
 }

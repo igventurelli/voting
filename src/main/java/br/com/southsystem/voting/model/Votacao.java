@@ -6,23 +6,28 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"sessao_votacao_id", "associado_id"}) })
 public class Votacao {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "sessao_votacao_id")
-    private SessaoVotacao sessaoVotacao;
+    // tempo em segundos
+    @Column(columnDefinition = "integer default 60")
+    private Long tempo;
 
-    @ManyToOne
-    @JoinColumn(name = "associado_id")
-    private Associado associado;
+    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    private Pauta pauta;
+
+    @OneToMany(mappedBy = "votacao", cascade = CascadeType.ALL)
+    private Set<Voto> votos;
 }
