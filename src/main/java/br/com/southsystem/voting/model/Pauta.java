@@ -1,5 +1,6 @@
 package br.com.southsystem.voting.model;
 
+import br.com.southsystem.voting.dto.PautaDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,4 +21,8 @@ public class Pauta {
 
     @Column
     private String titulo;
+
+    public PautaDTO toDTO() {
+        return new PautaDTO(id, titulo);
+    }
 }
