@@ -26,6 +26,6 @@ public class Pauta {
     private Votacao votacao;
 
     public PautaDTO toDTO() {
-        return new PautaDTO(id, titulo);
+        return PautaDTO.builder().id(id).titulo(titulo).build();
     }
 }

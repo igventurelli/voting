@@ -1,4 +1,4 @@
-package br.com.southsystem.voting.controller.payload;
+package br.com.southsystem.voting.controller.payload.votacao;
 
 import lombok.Builder;
 

@@ -1,7 +1,7 @@
 package br.com.southsystem.voting.controller;
 
-import br.com.southsystem.voting.controller.payload.AbrirVotacaoRequestPayload;
-import br.com.southsystem.voting.controller.payload.AbrirVotacaoResponsePayload;
+import br.com.southsystem.voting.controller.payload.votacao.AbrirVotacaoRequestPayload;
+import br.com.southsystem.voting.controller.payload.votacao.AbrirVotacaoResponsePayload;
 import br.com.southsystem.voting.dto.PautaDTO;
 import br.com.southsystem.voting.dto.VotacaoDTO;
 import br.com.southsystem.voting.service.VotacaoService;

@@ -24,10 +24,10 @@ public class Associado {
     @Column
     private String nome;
 
-    @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "associado", cascade = CascadeType.MERGE)
     private Set<Voto> votos;
 
     public AssociadoDTO toDTO() {
-        return new AssociadoDTO(id, nome);
+        return AssociadoDTO.builder().id(id).nome(nome).build();
     }
 }

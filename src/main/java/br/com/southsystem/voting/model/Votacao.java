@@ -41,8 +41,19 @@ public class Votacao {
     }
 
     public VotacaoDTO toDTO() {
-        return new VotacaoDTO(id, pauta.toDTO(), tempo, votos != null ? votos.stream()
-                .map(v -> new VotoDTO(v.getId(), v.getAssociado().toDTO()))
-                .collect(Collectors.toSet()) : null);
+        var builder = VotacaoDTO
+                .builder()
+                .id(id)
+                .tempo(tempo);
+
+        if (pauta != null) {
+            builder.pauta(pauta.toDTO());
+        }
+
+        if (votos != null) {
+            builder.votos(votos.stream().map(v -> VotoDTO.builder().build()).collect(Collectors.toSet()));
+        }
+
+        return builder.build();
     }
 }

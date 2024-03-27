@@ -19,6 +19,9 @@ public class Voto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String valor;
+
     @ManyToOne
     @JoinColumn(name = "votacao_id")
     private Votacao votacao;
@@ -28,6 +31,6 @@ public class Voto {
     private Associado associado;
 
     public VotoDTO toDTO() {
-        return new VotoDTO(id, associado.toDTO());
+        return VotoDTO.builder().id(id).votacaoDTO(votacao.toDTO()).valor(valor).associado(associado.toDTO()).build();
     }
 }
