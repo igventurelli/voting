@@ -22,6 +22,9 @@ public class Pauta {
     @Column
     private String titulo;
 
+    @OneToOne(mappedBy = "pauta")
+    private Votacao votacao;
+
     public PautaDTO toDTO() {
         return new PautaDTO(id, titulo);
     }

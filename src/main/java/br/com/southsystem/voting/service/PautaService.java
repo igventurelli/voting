@@ -12,6 +12,6 @@ public class PautaService {
     private final PautaRepository pautaRepository;
 
     public PautaDTO create(PautaDTO dto) {
-        return pautaRepository.save(dto.toEntity()).toDTO();
+        return pautaRepository.save(dto.toModel()).toDTO();
     }
 }

@@ -1,5 +1,6 @@
 package br.com.southsystem.voting.model;
 
+import br.com.southsystem.voting.dto.VotoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,4 +26,8 @@ public class Voto {
     @ManyToOne
     @JoinColumn(name = "associado_id")
     private Associado associado;
+
+    public VotoDTO toDTO() {
+        return new VotoDTO(id, associado.toDTO());
+    }
 }
