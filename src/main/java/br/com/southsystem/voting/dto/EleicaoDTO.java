@@ -1,6 +1,6 @@
 package br.com.southsystem.voting.dto;
 
-import br.com.southsystem.voting.model.Votacao;
+import br.com.southsystem.voting.model.Eleicao;
 import br.com.southsystem.voting.model.Voto;
 import lombok.Builder;
 
@@ -8,10 +8,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Builder
-public record VotacaoDTO (Long id, PautaDTO pauta, Long tempo, Set<VotoDTO> votos) {
+public record EleicaoDTO(Long id, PautaDTO pauta, Long tempo, Set<VotoDTO> votos) {
 
-    public Votacao toModel() {
-        return Votacao.builder()
+    public Eleicao toModel() {
+        return Eleicao.builder()
                 .pauta(pauta.toModel())
                 .tempo(tempo)
                 .votos(votos.stream()

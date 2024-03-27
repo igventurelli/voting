@@ -23,7 +23,7 @@ public class Pauta {
     private String titulo;
 
     @OneToOne(mappedBy = "pauta")
-    private Votacao votacao;
+    private Eleicao eleicao;
 
     public PautaDTO toDTO() {
         return PautaDTO.builder().id(id).titulo(titulo).build();

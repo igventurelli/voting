@@ -1,6 +1,6 @@
 package br.com.southsystem.voting.model;
 
-import br.com.southsystem.voting.dto.VotacaoDTO;
+import br.com.southsystem.voting.dto.EleicaoDTO;
 import br.com.southsystem.voting.dto.VotoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Votacao {
+public class Eleicao {
 
     @Id
     @Column
@@ -31,7 +31,7 @@ public class Votacao {
     @OneToOne(cascade = CascadeType.MERGE)
     private Pauta pauta;
 
-    @OneToMany(mappedBy = "votacao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "eleicao", cascade = CascadeType.ALL)
     private Set<Voto> votos;
 
     @PrePersist
@@ -40,8 +40,8 @@ public class Votacao {
         tempo = Optional.ofNullable(tempo).orElse(60L);
     }
 
-    public VotacaoDTO toDTO() {
-        var builder = VotacaoDTO
+    public EleicaoDTO toDTO() {
+        var builder = EleicaoDTO
                 .builder()
                 .id(id)
                 .tempo(tempo);

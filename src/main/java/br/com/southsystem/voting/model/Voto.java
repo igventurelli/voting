@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"votacao_id", "associado_id"}) })
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"eleicao_id", "associado_id"}) })
 public class Voto {
 
     @Id
@@ -23,14 +23,14 @@ public class Voto {
     private String valor;
 
     @ManyToOne
-    @JoinColumn(name = "votacao_id")
-    private Votacao votacao;
+    @JoinColumn(name = "eleicao_id")
+    private Eleicao eleicao;
 
     @ManyToOne
     @JoinColumn(name = "associado_id")
     private Associado associado;
 
     public VotoDTO toDTO() {
-        return VotoDTO.builder().id(id).votacaoDTO(votacao.toDTO()).valor(valor).associado(associado.toDTO()).build();
+        return VotoDTO.builder().id(id).eleicaoDTO(eleicao.toDTO()).valor(valor).associado(associado.toDTO()).build();
     }
 }

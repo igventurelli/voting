@@ -1,20 +1,20 @@
 package br.com.southsystem.voting.service;
 
-import br.com.southsystem.voting.dto.VotacaoDTO;
+import br.com.southsystem.voting.dto.EleicaoDTO;
 import br.com.southsystem.voting.model.Pauta;
-import br.com.southsystem.voting.model.Votacao;
-import br.com.southsystem.voting.repository.VotacaoRepository;
+import br.com.southsystem.voting.model.Eleicao;
+import br.com.southsystem.voting.repository.EleicaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class VotacaoService {
+public class EleicaoService {
 
-    private final VotacaoRepository votacaoRepository;
+    private final EleicaoRepository eleicaoRepository;
 
-    public VotacaoDTO abrirVotacao(VotacaoDTO dto) {
-        return votacaoRepository.save(Votacao.builder()
+    public EleicaoDTO create(EleicaoDTO dto) {
+        return eleicaoRepository.save(Eleicao.builder()
                 .pauta(Pauta.builder().id(dto.pauta().id()).build())
                 .tempo(dto.tempo())
                 .build())
