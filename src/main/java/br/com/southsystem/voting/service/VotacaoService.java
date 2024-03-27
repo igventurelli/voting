@@ -14,7 +14,7 @@ public class VotacaoService {
     private final VotacaoRepository votacaoRepository;
 
     public VotacaoDTO abrirVotacao(VotacaoDTO dto) {
-        return votacaoRepository.save(Votacao.builder()
+        return votacaoRepository.saveAndFlush(Votacao.builder()
                 .pauta(Pauta.builder().id(dto.pauta().id()).build())
                 .tempo(dto.tempo())
                 .build())
