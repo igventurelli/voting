@@ -1,6 +1,7 @@
 package br.com.southsystem.voting.controller;
 
-import br.com.southsystem.voting.controller.payload.AbrirVotacaoPayload;
+import br.com.southsystem.voting.controller.payload.AbrirVotacaoRequestPayload;
+import br.com.southsystem.voting.controller.payload.AbrirVotacaoResponsePayload;
 import br.com.southsystem.voting.dto.PautaDTO;
 import br.com.southsystem.voting.dto.VotacaoDTO;
 import br.com.southsystem.voting.service.VotacaoService;
@@ -21,7 +22,7 @@ public class VotacaoController {
     private final VotacaoService votacaoService;
 
     @PostMapping("/")
-    public ResponseEntity<VotacaoDTO> create(@RequestBody AbrirVotacaoPayload payload) {
+    public ResponseEntity<AbrirVotacaoResponsePayload> create(@RequestBody AbrirVotacaoRequestPayload payload) {
         var dto = VotacaoDTO.builder()
                 .pauta(PautaDTO.builder().id(payload.pautaId()).build())
                 .tempo(payload.tempo())
@@ -29,6 +30,10 @@ public class VotacaoController {
 
         var votacao = votacaoService.abrirVotacao(dto);
 
-        return ResponseEntity.created(URI.create("/votacoes/" + votacao.id())).body(votacao);
+        return ResponseEntity.created(URI.create("/votacoes/" + votacao.id())).body(AbrirVotacaoResponsePayload.builder()
+                .id(votacao.id())
+                .pautaId(votacao.pauta().id())
+                .tempo(votacao.tempo())
+                .build());
     }
 }
