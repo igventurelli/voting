@@ -3,15 +3,17 @@ package br.com.southsystem.voting.model;
 import br.com.southsystem.voting.dto.EleicaoDTO;
 import br.com.southsystem.voting.dto.VotoDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,6 +27,9 @@ public class Eleicao {
     @Column
     private Long tempo;
 
+    @Column
+    private LocalDateTime dataAbertura;
+
     @JoinColumn
     @OneToOne(cascade = CascadeType.MERGE)
     private Pauta pauta;
@@ -36,13 +41,16 @@ public class Eleicao {
     public void prePersist() {
         // defaults to 60 seconds
         tempo = Optional.ofNullable(tempo).orElse(60L);
+
+        dataAbertura = LocalDateTime.now();
     }
 
     public EleicaoDTO toDTO() {
         var builder = EleicaoDTO
                 .builder()
                 .id(id)
-                .tempo(tempo);
+                .tempo(tempo)
+                .dataAbertura(dataAbertura);
 
         if (pauta != null) {
             builder.pauta(pauta.toDTO());
@@ -57,27 +65,16 @@ public class Eleicao {
         return builder.build();
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Eleicao eleicao = (Eleicao) o;
+        return Objects.equals(id, eleicao.id) && Objects.equals(tempo, eleicao.tempo) && Objects.equals(dataAbertura, eleicao.dataAbertura) && Objects.equals(votos, eleicao.votos);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getTempo() {
-        return tempo;
-    }
-
-    public void setTempo(Long tempo) {
-        this.tempo = tempo;
-    }
-
-    public Set<Voto> getVotos() {
-        return votos;
-    }
-
-    public void setVotos(Set<Voto> votos) {
-        this.votos = votos;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, tempo, dataAbertura, votos);
     }
 }

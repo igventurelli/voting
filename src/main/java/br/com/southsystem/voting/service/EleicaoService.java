@@ -8,6 +8,8 @@ import br.com.southsystem.voting.repository.EleicaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class EleicaoService {
@@ -24,5 +26,10 @@ public class EleicaoService {
 
     public EleicaoDTO getResults(Long id) {
         return eleicaoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Eleicao.class)).toDTO();
+    }
+
+    public boolean isElectionOpen(Long id) {
+        var eleicao = eleicaoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Eleicao.class));
+        return LocalDateTime.now().isBefore(eleicao.getDataAbertura().plusSeconds(eleicao.getTempo()));
     }
 }

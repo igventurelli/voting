@@ -32,6 +32,7 @@ public class EleicaoController {
                 .id(eleicao.id())
                 .pautaId(eleicao.pauta().id())
                 .tempo(eleicao.tempo())
+                .dataAbertura(eleicao.dataAbertura())
                 .build());
     }
 
