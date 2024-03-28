@@ -1,8 +1,9 @@
 package br.com.southsystem.voting.service;
 
 import br.com.southsystem.voting.dto.EleicaoDTO;
-import br.com.southsystem.voting.model.Pauta;
+import br.com.southsystem.voting.exception.ResourceNotFoundException;
 import br.com.southsystem.voting.model.Eleicao;
+import br.com.southsystem.voting.model.Pauta;
 import br.com.southsystem.voting.repository.EleicaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,9 @@ public class EleicaoService {
                 .tempo(dto.tempo())
                 .build())
                 .toDTO();
+    }
+
+    public EleicaoDTO getResults(Long id) {
+        return eleicaoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Eleicao.class)).toDTO();
     }
 }

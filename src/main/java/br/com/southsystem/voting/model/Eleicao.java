@@ -5,14 +5,12 @@ import br.com.southsystem.voting.dto.VotoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
 @Entity
 @Builder
 @NoArgsConstructor
@@ -51,9 +49,35 @@ public class Eleicao {
         }
 
         if (votos != null) {
-            builder.votos(votos.stream().map(v -> VotoDTO.builder().build()).collect(Collectors.toSet()));
+            builder.votos(votos.stream().map(v -> VotoDTO.builder()
+                    .valor(v.getValor())
+                    .build()).collect(Collectors.toSet()));
         }
 
         return builder.build();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(Long tempo) {
+        this.tempo = tempo;
+    }
+
+    public Set<Voto> getVotos() {
+        return votos;
+    }
+
+    public void setVotos(Set<Voto> votos) {
+        this.votos = votos;
     }
 }
